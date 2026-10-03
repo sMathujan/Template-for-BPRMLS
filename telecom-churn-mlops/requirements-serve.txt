@@ -1,0 +1,13 @@
+# Minimal runtime for the Docker image (no tuning / notebooks / test tools)
+pandas>=2.0
+numpy>=1.24
+scikit-learn>=1.3
+xgboost>=2.0
+catboost>=1.2
+imbalanced-learn>=0.12
+fastapi>=0.110
+uvicorn[standard]>=0.27
+pydantic>=2.5
+pyyaml>=6.0
+joblib>=1.3
+matplotlib>=3.7

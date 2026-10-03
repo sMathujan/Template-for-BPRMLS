@@ -1,0 +1,26 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+      - name: Lint
+        run: flake8 src pipelines utils api tests
+      - name: Build data + quick baseline model
+        run: |
+          python pipelines/data_pipeline.py --force
+          python pipelines/training_pipeline.py --no-tune
+      - name: Tests
+        run: pytest -v

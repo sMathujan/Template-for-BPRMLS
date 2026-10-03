@@ -1,0 +1,14 @@
+.venv/
+.git/
+mlruns/
+mlflow.db
+data/
+notebooks/
+tests/
+artifacts/data/
+artifacts/mlflow_training_artifacts/
+artifacts/inference_batches/
+artifacts/predictions/
+artifacts/eda/
+**/__pycache__/
+*.ipynb

@@ -1,0 +1,222 @@
+# =============================================================================
+# Telecom Customer Churn — Production Configuration
+# Every pipeline reads from this file. Paths are relative to the project root.
+# =============================================================================
+
+project:
+  name: "telecom_customer_churn"
+  version: "1.0.0"
+  random_state: 42
+
+data_paths:
+  raw_data: "data/raw/Dataset-Telco-Customer-Churn.csv"
+  cleaned_data: "data/processed/telco_cleaned.csv"
+  artifacts_dir: "artifacts"
+  data_artifacts_dir: "artifacts/data"
+  model_artifacts_dir: "artifacts/models"
+  encode_dir: "artifacts/encode"
+  scale_dir: "artifacts/scale"
+  evaluation_dir: "artifacts/evaluation"
+  predictions_dir: "artifacts/predictions"
+  X_train: "artifacts/data/X_train.csv"
+  X_val: "artifacts/data/X_val.csv"
+  X_test: "artifacts/data/X_test.csv"
+  Y_train: "artifacts/data/Y_train.csv"
+  Y_val: "artifacts/data/Y_val.csv"
+  Y_test: "artifacts/data/Y_test.csv"
+
+columns:
+  target: "Churn"
+  id_column: "customerID"
+  drop_columns: ["customerID"]
+  numeric_columns: ["tenure", "MonthlyCharges", "TotalCharges"]
+  # Raw input schema expected at inference time (order does not matter)
+  raw_feature_columns:
+    - "gender"
+    - "SeniorCitizen"
+    - "Partner"
+    - "Dependents"
+    - "tenure"
+    - "PhoneService"
+    - "MultipleLines"
+    - "InternetService"
+    - "OnlineSecurity"
+    - "OnlineBackup"
+    - "DeviceProtection"
+    - "TechSupport"
+    - "StreamingTV"
+    - "StreamingMovies"
+    - "Contract"
+    - "PaperlessBilling"
+    - "PaymentMethod"
+    - "MonthlyCharges"
+    - "TotalCharges"
+
+data_cleaning:
+  # TotalCharges arrives as text with blanks for tenure = 0 customers
+  coerce_numeric: ["TotalCharges"]
+  # "No internet service" / "No phone service" are functionally "No"
+  category_normalisation:
+    "No internet service": "No"
+    "No phone service": "No"
+  normalise_columns:
+    - "OnlineSecurity"
+    - "OnlineBackup"
+    - "DeviceProtection"
+    - "TechSupport"
+    - "StreamingTV"
+    - "StreamingMovies"
+    - "MultipleLines"
+
+missing_values:
+  # The 11 blank-TotalCharges rows (<0.2% of data) are dropped, as in the research
+  strategy: "drop"
+  critical_columns: ["TotalCharges"]
+  # Used only at inference time if a value is missing (tenure-0 customer)
+  inference_fill:
+    TotalCharges: 0.0
+
+outlier_detection:
+  enabled: true
+  detection_method: "iqr"
+  # "report" = log only (EDA showed no meaningful outliers); "remove" = drop rows
+  handling_method: "report"
+  iqr_multiplier: 1.5
+  columns: ["tenure", "MonthlyCharges", "TotalCharges"]
+
+feature_binning:
+  # Disabled to stay faithful to the published model; switch on to experiment
+  enabled: false
+  column: "tenure"
+  bins:
+    "0-12m": [0, 12]
+    "13-24m": [13, 24]
+    "25-48m": [25, 48]
+    "49m+": [49, 100]
+
+feature_encoding:
+  binary_mappings:
+    gender: {"Male": 1, "Female": 0}
+    Partner: {"Yes": 1, "No": 0}
+    Dependents: {"Yes": 1, "No": 0}
+    PhoneService: {"Yes": 1, "No": 0}
+    PaperlessBilling: {"Yes": 1, "No": 0}
+    MultipleLines: {"Yes": 1, "No": 0}
+    OnlineSecurity: {"Yes": 1, "No": 0}
+    OnlineBackup: {"Yes": 1, "No": 0}
+    DeviceProtection: {"Yes": 1, "No": 0}
+    TechSupport: {"Yes": 1, "No": 0}
+    StreamingTV: {"Yes": 1, "No": 0}
+    StreamingMovies: {"Yes": 1, "No": 0}
+  target_mapping: {"Yes": 1, "No": 0}
+  nominal_columns: ["InternetService", "Contract", "PaymentMethod"]
+  drop_first: true
+
+feature_scaling:
+  # StandardScaler is FITTED ON TRAIN ONLY, then applied to val/test/inference
+  scaling_type: "standard"
+  columns_to_scale: ["tenure", "MonthlyCharges", "TotalCharges"]
+
+data_splitting:
+  # 60% train / 20% validation / 20% test, stratified on the target
+  split_type: "stratified_three_way"
+  test_size: 0.20
+  val_size: 0.20
+  random_state: 42
+
+class_imbalance:
+  # SMOTE is applied to the TRAINING split only (and inside each CV fold)
+  method: "smote"
+  random_state: 42
+
+training:
+  models: ["random_forest", "xgboost", "catboost"]
+  # Champion is chosen on VALIDATION F1 (test set is only for final reporting)
+  selection_metric: "F1"
+  cv_folds: 5
+  hyperparameter_tuning:
+    enabled: true
+    method: "optuna_tpe"
+    optimise_metric: "f1"
+    n_trials:
+      random_forest: 50
+      xgboost: 100
+      catboost: 100
+    early_stopping_rounds: 40
+
+model:
+  # Defaults used when tuning is disabled (the research "baseline" models)
+  model_types:
+    random_forest:
+      n_estimators: 300
+      class_weight: "balanced"
+      n_jobs: -1
+    xgboost:
+      n_estimators: 500
+      learning_rate: 0.05
+      max_depth: 6
+      subsample: 0.8
+      colsample_bytree: 0.8
+      eval_metric: "logloss"
+      n_jobs: -1
+      verbosity: 0
+    catboost:
+      iterations: 500
+      learning_rate: 0.05
+      depth: 6
+      loss_function: "Logloss"
+      verbose: false
+      allow_writing_files: false
+  model_path: "artifacts/models/churn_model.joblib"
+  metadata_path: "artifacts/models/model_metadata.json"
+
+threshold_optimisation:
+  # "f1" reproduces the research; "expected_value" uses the business economics below
+  metric: "f1"
+  search_min: 0.10
+  search_max: 0.90
+  step: 0.01
+
+business:
+  # UK retention economics from the research README (revenue, not profit)
+  customer_lifetime_value_gbp: 1656.0   # £69/month x 24-month contract
+  retention_offer_cost_gbp: 99.0        # one year of a typical retention discount
+  retention_success_rate: 0.30          # assumption; no public UK figure
+
+evaluation:
+  metrics: ["Accuracy", "Precision", "Recall", "F1", "ROC-AUC", "PR-AUC"]
+  bootstrap:
+    enabled: true
+    n_iterations: 1000
+    confidence_level: 0.95
+
+inference:
+  data_path: "data/raw/Dataset-Telco-Customer-Churn.csv"
+  sample_size: 20
+  batch_size: 100
+  save_path: "artifacts/predictions/predictions.csv"
+  risk_bands:
+    high: 0.70
+    medium: 0.40
+
+logging:
+  level: "INFO"
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+
+mlflow:
+  # SQLite backend (recent MLflow versions no longer accept the plain ./mlruns file store)
+  tracking_uri: "sqlite:///mlflow.db"
+  artifact_location: "mlruns"
+  experiment_name: "Telecom Churn - Ensemble ML + Threshold Optimisation"
+  model_registry_name: "telecom_churn_model"
+  champion_alias: "champion"
+  run_name_prefix: "churn_run"
+  tags:
+    project: "telecom_customer_churn"
+    team: "ml_engineering"
+    environment: "development"
+    author: "Mathujan Sivananthan"
+
+api:
+  host: "0.0.0.0"
+  port: 8000

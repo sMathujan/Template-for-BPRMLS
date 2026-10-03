@@ -1,0 +1,6 @@
+[flake8]
+max-line-length = 110
+# E402: pipelines/api add the project root to sys.path before importing
+# E702/E704: compact one-line matplotlib calls
+extend-ignore = E203, E272, E402, E702, E704, E731
+exclude = .venv, mlruns, artifacts, __pycache__
