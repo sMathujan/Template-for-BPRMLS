@@ -1,0 +1,19 @@
+aliases: []
+creation_timestamp: 1760523467130
+current_stage: None
+deployment_job_state: null
+description: null
+last_updated_timestamp: 1760523467130
+metrics: null
+model_id: m-ba9d424571834fedad2ce3de440a5320
+name: churn_prediction
+params: null
+run_id: 039c3e42bd444e97929c8e51f8d97172
+run_link: null
+source: models:/m-ba9d424571834fedad2ce3de440a5320
+status: READY
+status_message: null
+storage_location: file:///Users/machinelearningzuu/Dropbox/Zuu Crew/Courses/Building
+  Production-Ready Machine Learning Systems/Live Classes/Week 05_06/mlruns/462762428899148048/models/m-ba9d424571834fedad2ce3de440a5320/artifacts
+user_id: null
+version: 1

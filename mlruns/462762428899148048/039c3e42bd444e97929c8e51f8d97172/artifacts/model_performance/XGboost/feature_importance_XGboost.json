@@ -1,0 +1,34 @@
+{
+  "feature":{
+    "8":"CreditScoreBins",
+    "13":"Gender_Male",
+    "9":"Geography_France",
+    "2":"Tenure",
+    "0":"CreditScore",
+    "5":"HasCrCard",
+    "7":"EstimatedSalary",
+    "11":"Geography_Spain",
+    "12":"Gender_Female",
+    "3":"Balance",
+    "10":"Geography_Germany",
+    "1":"Age",
+    "6":"IsActiveMember",
+    "4":"NumOfProducts"
+  },
+  "importance":{
+    "8":0.0,
+    "13":0.0,
+    "9":0.0348620676,
+    "2":0.0349056646,
+    "0":0.0355422907,
+    "5":0.0359177031,
+    "7":0.0374999419,
+    "11":0.0455903523,
+    "12":0.0479845628,
+    "3":0.0512831062,
+    "10":0.08813788,
+    "1":0.0975786969,
+    "6":0.1059173197,
+    "4":0.3847803771
+  }
+}

@@ -1,0 +1,163 @@
+{
+  "csv_files": {
+    "X_train": {
+      "file_path": "artifacts/data/X_train.csv",
+      "file_size_mb": 0.42,
+      "shape": [
+        7990,
+        10
+      ],
+      "columns": [
+        "Geography",
+        "Gender",
+        "Age",
+        "Tenure",
+        "Balance",
+        "NumOfProducts",
+        "HasCrCard",
+        "IsActiveMember",
+        "EstimatedSalary",
+        "CreditScoreBins"
+      ],
+      "sample_values": {
+        "Geography": {
+          "0": 0,
+          "1": 2
+        },
+        "Gender": {
+          "0": 1,
+          "1": 1
+        },
+        "Age": {
+          "0": 34.0,
+          "1": 43.0
+        },
+        "Tenure": {
+          "0": 9,
+          "1": 8
+        },
+        "Balance": {
+          "0": 0.0,
+          "1": 0.3262077842043357
+        },
+        "NumOfProducts": {
+          "0": 1.0,
+          "1": 2.0
+        },
+        "HasCrCard": {
+          "0": 1,
+          "1": 1
+        },
+        "IsActiveMember": {
+          "0": 0,
+          "1": 1
+        },
+        "EstimatedSalary": {
+          "0": 0.3028926762505819,
+          "1": 0.1795015423972989
+        },
+        "CreditScoreBins": {
+          "0": 2,
+          "1": 3
+        }
+      }
+    },
+    "X_test": {
+      "file_path": "artifacts/data/X_test.csv",
+      "file_size_mb": 0.1,
+      "shape": [
+        1998,
+        10
+      ],
+      "columns": [
+        "Geography",
+        "Gender",
+        "Age",
+        "Tenure",
+        "Balance",
+        "NumOfProducts",
+        "HasCrCard",
+        "IsActiveMember",
+        "EstimatedSalary",
+        "CreditScoreBins"
+      ],
+      "sample_values": {
+        "Geography": {
+          "0": 2,
+          "1": 0
+        },
+        "Gender": {
+          "0": 1,
+          "1": 0
+        },
+        "Age": {
+          "0": 42.0,
+          "1": 33.0
+        },
+        "Tenure": {
+          "0": 0,
+          "1": 8
+        },
+        "Balance": {
+          "0": 0.310855176298871,
+          "1": 0.0
+        },
+        "NumOfProducts": {
+          "0": 2.0,
+          "1": 2.0
+        },
+        "HasCrCard": {
+          "0": 1,
+          "1": 0
+        },
+        "IsActiveMember": {
+          "0": 1,
+          "1": 0
+        },
+        "EstimatedSalary": {
+          "0": 0.4895207492315516,
+          "1": 0.5868692460129942
+        },
+        "CreditScoreBins": {
+          "0": 3,
+          "1": 1
+        }
+      }
+    },
+    "Y_train": {
+      "file_path": "artifacts/data/Y_train.csv",
+      "file_size_mb": 0.02,
+      "shape": [
+        7990,
+        1
+      ],
+      "columns": [
+        "Exited"
+      ],
+      "sample_values": {
+        "Exited": {
+          "0": 0,
+          "1": 0
+        }
+      }
+    },
+    "Y_test": {
+      "file_path": "artifacts/data/Y_test.csv",
+      "file_size_mb": 0.0,
+      "shape": [
+        1998,
+        1
+      ],
+      "columns": [
+        "Exited"
+      ],
+      "sample_values": {
+        "Exited": {
+          "0": 0,
+          "1": 0
+        }
+      }
+    }
+  },
+  "timestamp": "2025-09-01T14:12:42.250870"
+}

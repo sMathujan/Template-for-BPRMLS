@@ -1,0 +1,16 @@
+digest: c0114361
+name: existing_churn_test_data
+profile: '{"num_rows": 1866, "num_elements": 27990}'
+schema: '{"mlflow_colspec": [{"type": "long", "name": "CreditScore", "required": true},
+  {"type": "double", "name": "Age", "required": true}, {"type": "long", "name": "Tenure",
+  "required": true}, {"type": "double", "name": "Balance", "required": true}, {"type":
+  "long", "name": "NumOfProducts", "required": true}, {"type": "long", "name": "HasCrCard",
+  "required": true}, {"type": "long", "name": "IsActiveMember", "required": true},
+  {"type": "double", "name": "EstimatedSalary", "required": true}, {"type": "long",
+  "name": "CreditScoreBins", "required": true}, {"type": "long", "name": "Geography_France",
+  "required": true}, {"type": "long", "name": "Geography_Germany", "required": true},
+  {"type": "long", "name": "Geography_Spain", "required": true}, {"type": "long",
+  "name": "Gender_Female", "required": true}, {"type": "long", "name": "Gender_Male",
+  "required": true}, {"type": "long", "name": "Exited", "required": true}]}'
+source: '{"uri": "existing_processed_from_data/raw/ChurnModelling.csv"}'
+source_type: local

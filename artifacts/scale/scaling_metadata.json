@@ -1,0 +1,19 @@
+{
+  "columns_to_scale": [
+    "Balance",
+    "EstimatedSalary",
+    "Age"
+  ],
+  "data_min": [
+    0.0,
+    11.58,
+    18.0
+  ],
+  "data_max": [
+    250898.09,
+    199992.48,
+    59.0
+  ],
+  "n_features": 3,
+  "scaling_type": "minmax"
+}

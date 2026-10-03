@@ -1,0 +1,23 @@
+artifact_path: file:///Users/machinelearningzuu/Dropbox/Zuu Crew/Courses/Building
+  Production-Ready Machine Learning Systems/Live Classes/Week 05_06/mlruns/462762428899148048/models/m-22e9893f2bca41e1be4dcdb0a7c80a05/artifacts
+flavors:
+  python_function:
+    env:
+      conda: conda.yaml
+      virtualenv: python_env.yaml
+    loader_module: mlflow.sklearn
+    model_path: model.pkl
+    predict_fn: predict
+    python_version: 3.13.5
+  sklearn:
+    code: null
+    pickled_model: model.pkl
+    serialization_format: cloudpickle
+    sklearn_version: 1.7.2
+mlflow_version: 3.4.0
+model_id: m-22e9893f2bca41e1be4dcdb0a7c80a05
+model_size_bytes: 807755
+model_uuid: m-22e9893f2bca41e1be4dcdb0a7c80a05
+prompts: null
+run_id: 0d34c5b023ce469a9c50505f88b240d7
+utc_time_created: '2025-10-15 10:20:40.902664'

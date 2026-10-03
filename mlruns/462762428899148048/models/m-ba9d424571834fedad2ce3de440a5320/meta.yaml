@@ -1,0 +1,11 @@
+artifact_location: file:///Users/machinelearningzuu/Dropbox/Zuu Crew/Courses/Building
+  Production-Ready Machine Learning Systems/Live Classes/Week 05_06/mlruns/462762428899148048/models/m-ba9d424571834fedad2ce3de440a5320/artifacts
+creation_timestamp: 1760523465268
+experiment_id: '462762428899148048'
+last_updated_timestamp: 1760523467122
+model_id: m-ba9d424571834fedad2ce3de440a5320
+model_type: null
+name: model
+source_run_id: 039c3e42bd444e97929c8e51f8d97172
+status: 2
+status_message: null

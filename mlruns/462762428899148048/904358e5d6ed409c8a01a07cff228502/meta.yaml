@@ -1,0 +1,15 @@
+artifact_uri: file:///Users/machinelearningzuu/Dropbox/Zuu Crew/Courses/Building Production-Ready
+  Machine Learning Systems/Live Classes/Week 05_06/mlruns/462762428899148048/904358e5d6ed409c8a01a07cff228502/artifacts
+end_time: 1760523652000
+entry_point_name: ''
+experiment_id: '462762428899148048'
+lifecycle_stage: active
+run_id: 904358e5d6ed409c8a01a07cff228502
+run_name: streaming inference | 2025-10-15 15:50:51
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1760523651987
+status: 3
+tags: []
+user_id: machinelearningzuu
